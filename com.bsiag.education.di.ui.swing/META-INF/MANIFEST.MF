@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: My Application
+Bundle-SymbolicName: com.bsiag.education.di.ui.swing;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Activator: com.bsiag.education.di.ui.swing.Activator
+Export-Package: com.bsiag.education.di.ui.swing;uses:="org.eclipse.scout.rt.ui.swing,org.eclipse.scout.rt.client.session,org.osgi.framework"
+Require-Bundle: org.eclipse.scout.rt.ui.swing,
+ com.bsiag.education.di.client;visibility:=reexport,
+ com.bsiag.education.di.shared,
+ org.eclipse.scout.net
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
