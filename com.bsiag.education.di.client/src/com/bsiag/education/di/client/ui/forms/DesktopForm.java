@@ -29,11 +29,8 @@ import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.PersonTableFie
 import com.bsiag.education.di.shared.Icons;
 import com.bsiag.education.di.shared.services.DesktopFormData;
 import com.bsiag.education.di.shared.services.IDesktopService;
-import com.google.inject.Binder;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.google.inject.Module;
-import com.google.inject.name.Names;
 
 /**
  * @author aho
@@ -234,26 +231,10 @@ public class DesktopForm extends AbstractForm {
 
           @Override
           protected void execAction() throws ProcessingException {
-            final Long selectedPersonId = getPersonTableField().getTable().getIdColumn().getSelectedValue();
-            Injector injector = ClientSession.getInjector().createChildInjector(new Module() {
+            Long selectedPersonId = getPersonTableField().getTable().getIdColumn().getSelectedValue();
 
-              @Override
-              public void configure(Binder binder) {
-                binder.bind(Long.class).annotatedWith(Names.named("PERSON_ID")).toInstance(new Long(selectedPersonId));
-                // ensure person form is created by child injector
-                /**
-                 * Just-in-time bindings created for child injectors will be created in an ancestor injector whenever
-                 * possible.
-                 * This allows for scoped instances to be shared between injectors. Use explicit bindings to prevent
-                 * bindings
-                 * from being shared with the parent injector.
-                 **/
-                binder.bind(PersonForm.class);
-              }
-            });
-
-            PersonForm form = injector.getInstance(PersonForm.class);
-
+            PersonForm form = ClientSession.getInjector().getInstance(PersonForm.class);
+            form.setPersonNr(selectedPersonId);
             form.startModify();
             form.waitFor();
             if (form.isFormStored()) {
