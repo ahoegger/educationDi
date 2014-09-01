@@ -3,26 +3,37 @@
  */
 package com.bsiag.education.di.client.ui.forms;
 
+import java.util.Set;
+
+import org.eclipse.scout.commons.CollectionUtility;
 import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
-import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractIntegerColumn;
+import org.eclipse.scout.rt.client.ui.action.menu.IMenuType;
+import org.eclipse.scout.rt.client.ui.action.menu.TableMenuType;
+import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
+import org.eclipse.scout.rt.extension.client.ui.action.menu.AbstractExtensibleMenu;
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
 import org.eclipse.scout.rt.shared.TEXTS;
 
+import com.bsiag.education.di.client.ClientSession;
 import com.bsiag.education.di.client.services.ILogService;
 import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.NameField;
 import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.PersonTableField;
 import com.bsiag.education.di.shared.Icons;
 import com.bsiag.education.di.shared.services.DesktopFormData;
 import com.bsiag.education.di.shared.services.IDesktopService;
+import com.google.inject.Binder;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import com.google.inject.name.Names;
 
 /**
  * @author aho
@@ -142,7 +153,7 @@ public class DesktopForm extends AbstractForm {
         }
 
         @Order(10.0)
-        public class IdColumn extends AbstractIntegerColumn {
+        public class IdColumn extends AbstractLongColumn {
 
           @Override
           protected boolean getConfiguredDisplayable() {
@@ -187,19 +198,84 @@ public class DesktopForm extends AbstractForm {
             return 150;
           }
         }
+
+        @Order(10.0)
+        public class NewPersonMenu extends AbstractExtensibleMenu {
+
+          @Override
+          protected Set<? extends IMenuType> getConfiguredMenuTypes() {
+            return CollectionUtility.<IMenuType> hashSet(TableMenuType.EmptySpace);
+          }
+
+          @Override
+          protected String getConfiguredText() {
+            return TEXTS.get("NewPerson");
+          }
+
+          @Override
+          protected void execAction() throws ProcessingException {
+            Injector injector = ClientSession.getInjector();
+            PersonForm form = injector.getInstance(PersonForm.class);
+            form.startNew();
+            form.waitFor();
+            if (form.isFormStored()) {
+              reload();
+            }
+          }
+        }
+
+        @Order(20.0)
+        public class EditPersonMenu extends AbstractExtensibleMenu {
+
+          @Override
+          protected String getConfiguredText() {
+            return TEXTS.get("EditPerson");
+          }
+
+          @Override
+          protected void execAction() throws ProcessingException {
+            final Long selectedPersonId = getPersonTableField().getTable().getIdColumn().getSelectedValue();
+            Injector injector = ClientSession.getInjector().createChildInjector(new Module() {
+
+              @Override
+              public void configure(Binder binder) {
+                binder.bind(Long.class).annotatedWith(Names.named("PERSON_ID")).toInstance(new Long(selectedPersonId));
+                // ensure person form is created by child injector
+                /**
+                 * Just-in-time bindings created for child injectors will be created in an ancestor injector whenever
+                 * possible.
+                 * This allows for scoped instances to be shared between injectors. Use explicit bindings to prevent
+                 * bindings
+                 * from being shared with the parent injector.
+                 **/
+                binder.bind(PersonForm.class);
+              }
+            });
+
+            PersonForm form = injector.getInstance(PersonForm.class);
+
+            form.startModify();
+            form.waitFor();
+            if (form.isFormStored()) {
+              reload();
+            }
+          }
+        }
       }
     }
+  }
+
+  private void reload() throws ProcessingException {
+    DesktopFormData formData = new DesktopFormData();
+    formData = m_desktopService.load(formData);
+    importFormData(formData);
   }
 
   public class ViewHandler extends AbstractFormHandler {
 
     @Override
     protected void execLoad() throws ProcessingException {
-//      IDesktopService service = SERVICES.getService(IDesktopService.class);
-      DesktopFormData formData = new DesktopFormData();
-      exportFormData(formData);
-      formData = m_desktopService.load(formData);
-      importFormData(formData);
+      reload();
 
     }
   }

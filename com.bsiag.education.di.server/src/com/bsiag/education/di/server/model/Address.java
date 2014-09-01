@@ -2,11 +2,11 @@ package com.bsiag.education.di.server.model;
 
 public class Address {
 
-  private final int m_id;
+  private final long m_id;
   private String m_street;
   private String m_city;
 
-  public Address(int id, String street, String city) {
+  public Address(long id, String street, String city) {
     m_id = id;
     m_street = street;
     m_city = city;
@@ -28,7 +28,7 @@ public class Address {
     this.m_city = city;
   }
 
-  public int getId() {
+  public long getId() {
     return m_id;
   }
 

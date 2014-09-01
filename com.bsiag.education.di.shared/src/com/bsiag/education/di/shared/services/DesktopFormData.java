@@ -61,11 +61,11 @@ public class DesktopFormData extends AbstractFormData {
     public PersonTable() {
     }
 
-    public Integer getId(int row) {
-      return (Integer) getValueInternal(row, ID_COLUMN_ID);
+    public Long getId(int row) {
+      return (Long) getValueInternal(row, ID_COLUMN_ID);
     }
 
-    public void setId(int row, Integer id) {
+    public void setId(int row, Long id) {
       setValueInternal(row, ID_COLUMN_ID, id);
     }
 
@@ -108,7 +108,7 @@ public class DesktopFormData extends AbstractFormData {
     public void setValueAt(int row, int column, Object value) {
       switch (column) {
         case ID_COLUMN_ID:
-          setId(row, (Integer) value);
+          setId(row, (Long) value);
           break;
         case PRENAME_COLUMN_ID:
           setPrename(row, (String) value);

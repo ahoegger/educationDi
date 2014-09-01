@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.scout.commons.TypeCastUtility;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.commons.holders.NVPair;
 import org.eclipse.scout.rt.server.services.common.jdbc.ISqlService;
 
 import com.bsiag.education.di.server.model.Person;
@@ -24,7 +25,6 @@ public class PersonService {
   @Inject
   private PersonService(ISqlService sqlService) {
     m_sqlService = sqlService;
-    System.out.println("NEW PERSON SERVICE INST");
 
   }
 
@@ -39,4 +39,39 @@ public class PersonService {
     }
     return persons;
   }
+
+  /**
+   * @return
+   * @throws ProcessingException
+   */
+  public Long getNextPersonId() throws ProcessingException {
+    return m_sqlService.getSequenceNextval("SEQ");
+  }
+
+  /**
+   * @param person
+   * @throws ProcessingException
+   */
+  public void createPerson(Person person) throws ProcessingException {
+    m_sqlService.insert("INSERT INTO PERSON (ID, PRENAME, NAME) VALUES(:ID, :PRENAME, :NAME)",
+        new NVPair("ID", person.getId()), new NVPair("PRENAME", person.getFirstName()), new NVPair("NAME", person.getLastName()));
+  }
+
+  /**
+   * @param personNr
+   * @throws ProcessingException
+   */
+  public Person getPerson(Long personNr) throws ProcessingException {
+    Object[][] result = m_sqlService.select("SELECT PRENAME, NAME FROM PERSON WHERE ID=:id", new NVPair("id", personNr));
+    if (result.length == 1) {
+      return new Person(personNr, TypeCastUtility.castValue(result[0][0], String.class), TypeCastUtility.castValue(result[0][1], String.class));
+    }
+    return null;
+  }
+
+  public void updatePerson(Person person) throws ProcessingException {
+    m_sqlService.update("UPDATE PERSON SET PRENAME=:prename, NAME=:name WHERE id=:id",
+        new NVPair("id", person.getId()), new NVPair("prename", person.getFirstName()), new NVPair("name", person.getLastName()));
+  }
+
 }

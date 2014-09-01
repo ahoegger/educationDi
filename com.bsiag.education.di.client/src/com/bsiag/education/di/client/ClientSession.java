@@ -10,7 +10,6 @@ import org.eclipse.scout.rt.client.ClientSyncJob;
 import org.eclipse.scout.rt.client.servicetunnel.http.ClientHttpServiceTunnel;
 import org.eclipse.scout.rt.shared.services.common.code.CODES;
 
-import com.bsiag.education.di.client.module.FormModule;
 import com.bsiag.education.di.client.module.ServicesModule;
 import com.bsiag.education.di.client.module.UtilModule;
 import com.bsiag.education.di.client.ui.desktop.Desktop;
@@ -52,7 +51,6 @@ public class ClientSession extends AbstractClientSession {
   private void setupGuice() {
     m_injector = Guice.createInjector(
         new UtilModule(),
-        new FormModule(),
         new ServicesModule()
         );
 
