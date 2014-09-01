@@ -1,8 +1,9 @@
-package com.bsiag.education.di.examples.di05;
+package com.bsiag.education.di.examples.di05a;
+
+import java.lang.reflect.Constructor;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
@@ -10,8 +11,7 @@ import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 /**
- * - Bind properties with the  @Named(...)  annotation.
- * - Bind direct to instances - objects are immediately created.
+ * Constructor binding for non modifiable classes.
  */
 public class Main {
 
@@ -26,7 +26,12 @@ public class Main {
 			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo"))
 					.toInstance("Alberto");
 			// bind the food service
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
+			try {
+				Constructor<PizzaSerice> constructor = PizzaSerice.class.getConstructor(String.class);
+				binder.bind(IFoodService.class).toConstructor(constructor);
+			} catch (NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -39,8 +44,8 @@ public class Main {
 
 		private final String pizzaiolo;
 
-		@Inject
-		private PizzaSerice(@Named("pizzaiolo") String pizzaiolo) {
+		// constructor must be public
+		public PizzaSerice(@Named("pizzaiolo") String pizzaiolo) {
 			this.pizzaiolo = pizzaiolo;
 		}
 
