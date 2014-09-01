@@ -29,15 +29,15 @@ public class PersonProcessService extends AbstractService implements IPersonProc
   @Override
   public PersonFormData create(PersonFormData formData) throws ProcessingException {
     long personId = m_personService.getNextPersonId();
-    m_personService.createPerson(new Person(personId, formData.getPrename().getValue(), formData.getName().getValue()));
+    m_personService.createPerson(new Person(personId, formData.getFirstname().getValue(), formData.getName().getValue()));
     return formData;
   }
 
   @Override
   public PersonFormData load(PersonFormData formData) throws ProcessingException {
     Person person = m_personService.getPerson(formData.getPersonNr());
-    formData.getName().setValue(person.getLastName());
-    formData.getPrename().setValue(person.getFirstName());
+    formData.getName().setValue(person.getName());
+    formData.getFirstname().setValue(person.getFirstName());
     return formData;
   }
 
@@ -49,7 +49,7 @@ public class PersonProcessService extends AbstractService implements IPersonProc
 
   @Override
   public PersonFormData store(PersonFormData formData) throws ProcessingException {
-    m_personService.updatePerson(new Person(formData.getPersonNr(), formData.getPrename().getValue(), formData.getName().getValue()));
+    m_personService.updatePerson(new Person(formData.getPersonNr(), formData.getFirstname().getValue(), formData.getName().getValue()));
     return formData;
   }
 }

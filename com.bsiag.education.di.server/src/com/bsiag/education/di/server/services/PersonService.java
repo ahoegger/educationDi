@@ -30,7 +30,7 @@ public class PersonService {
 
   public List<Person> getPersons() throws ProcessingException {
     List<Person> persons = new ArrayList<Person>();
-    Object[][] data = m_sqlService.select("SELECT ID, PRENAME, NAME FROM PERSON");
+    Object[][] data = m_sqlService.select("SELECT ID, FIRSTNAME, NAME FROM PERSON");
     for (Object[] personData : data) {
       Person p = new Person(TypeCastUtility.castValue(personData[0], Integer.class).intValue(),
           TypeCastUtility.castValue(personData[1], String.class),
@@ -53,8 +53,8 @@ public class PersonService {
    * @throws ProcessingException
    */
   public void createPerson(Person person) throws ProcessingException {
-    m_sqlService.insert("INSERT INTO PERSON (ID, PRENAME, NAME) VALUES(:ID, :PRENAME, :NAME)",
-        new NVPair("ID", person.getId()), new NVPair("PRENAME", person.getFirstName()), new NVPair("NAME", person.getLastName()));
+    m_sqlService.insert("INSERT INTO PERSON (ID, FIRSTNAME, NAME) VALUES(:ID, :firstname, :NAME)",
+        new NVPair("ID", person.getId()), new NVPair("firstname", person.getFirstName()), new NVPair("NAME", person.getName()));
   }
 
   /**
@@ -62,7 +62,7 @@ public class PersonService {
    * @throws ProcessingException
    */
   public Person getPerson(Long personNr) throws ProcessingException {
-    Object[][] result = m_sqlService.select("SELECT PRENAME, NAME FROM PERSON WHERE ID=:id", new NVPair("id", personNr));
+    Object[][] result = m_sqlService.select("SELECT FIRSTNAME, NAME FROM PERSON WHERE ID=:id", new NVPair("id", personNr));
     if (result.length == 1) {
       return new Person(personNr, TypeCastUtility.castValue(result[0][0], String.class), TypeCastUtility.castValue(result[0][1], String.class));
     }
@@ -70,8 +70,8 @@ public class PersonService {
   }
 
   public void updatePerson(Person person) throws ProcessingException {
-    m_sqlService.update("UPDATE PERSON SET PRENAME=:prename, NAME=:name WHERE id=:id",
-        new NVPair("id", person.getId()), new NVPair("prename", person.getFirstName()), new NVPair("name", person.getLastName()));
+    m_sqlService.update("UPDATE PERSON SET FIRSTNAME=:firstname, NAME=:name WHERE id=:id",
+        new NVPair("id", person.getId()), new NVPair("firstname", person.getFirstName()), new NVPair("name", person.getName()));
   }
 
 }

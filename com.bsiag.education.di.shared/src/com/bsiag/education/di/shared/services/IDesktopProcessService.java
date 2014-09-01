@@ -12,7 +12,7 @@ import org.eclipse.scout.service.IService;
  * @author aho
  */
 @InputValidation(IValidationStrategy.PROCESS.class)
-public interface IDesktopService extends IService {
+public interface IDesktopProcessService extends IService {
 
   /**
    * @param formData

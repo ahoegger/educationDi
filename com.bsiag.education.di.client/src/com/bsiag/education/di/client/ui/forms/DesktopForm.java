@@ -16,7 +16,6 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
-import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
 import org.eclipse.scout.rt.extension.client.ui.action.menu.AbstractExtensibleMenu;
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
@@ -24,11 +23,10 @@ import org.eclipse.scout.rt.shared.TEXTS;
 
 import com.bsiag.education.di.client.ClientSession;
 import com.bsiag.education.di.client.services.ILogService;
-import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.NameField;
 import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.PersonTableField;
 import com.bsiag.education.di.shared.Icons;
 import com.bsiag.education.di.shared.services.DesktopFormData;
-import com.bsiag.education.di.shared.services.IDesktopService;
+import com.bsiag.education.di.shared.services.IDesktopProcessService;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
@@ -39,13 +37,13 @@ import com.google.inject.Injector;
 public class DesktopForm extends AbstractForm {
 
   private final ILogService m_logService;
-  private final IDesktopService m_desktopService;
+  private final IDesktopProcessService m_desktopService;
 
   /**
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   @Inject
-  private DesktopForm(ILogService logService, IDesktopService desktopService) throws ProcessingException {
+  private DesktopForm(ILogService logService, IDesktopProcessService desktopService) throws ProcessingException {
     super();
     m_logService = logService;
     m_desktopService = desktopService;
@@ -87,13 +85,6 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the NameField
-   */
-  public NameField getNameField() {
-    return getFieldByClass(NameField.class);
-  }
-
-  /**
    * @return the PersonTableField
    */
   public PersonTableField getPersonTableField() {
@@ -106,15 +97,6 @@ public class DesktopForm extends AbstractForm {
     @Override
     protected int getConfiguredGridColumnCount() {
       return 1;
-    }
-
-    @Order(10.0)
-    public class NameField extends AbstractStringField {
-
-      @Override
-      protected String getConfiguredLabel() {
-        return TEXTS.get("Name");
-      }
     }
 
     @Order(20.0)
@@ -131,8 +113,8 @@ public class DesktopForm extends AbstractForm {
         /**
          * @return the PrenameColumn
          */
-        public PrenameColumn getPrenameColumn() {
-          return getColumnSet().getColumnByClass(PrenameColumn.class);
+        public FirstnameColumn getFirstnameColumn() {
+          return getColumnSet().getColumnByClass(FirstnameColumn.class);
         }
 
         /**
@@ -169,11 +151,11 @@ public class DesktopForm extends AbstractForm {
         }
 
         @Order(20.0)
-        public class PrenameColumn extends AbstractStringColumn {
+        public class FirstnameColumn extends AbstractStringColumn {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return TEXTS.get("Prename");
+            return TEXTS.get("Firstname");
           }
 
           @Override

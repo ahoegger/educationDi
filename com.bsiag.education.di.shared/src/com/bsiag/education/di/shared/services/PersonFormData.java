@@ -26,6 +26,10 @@ public class PersonFormData extends AbstractFormData {
   public PersonFormData() {
   }
 
+  public Firstname getFirstname() {
+    return getFieldByClass(Firstname.class);
+  }
+
   public Name getName() {
     return getFieldByClass(Name.class);
   }
@@ -48,8 +52,21 @@ public class PersonFormData extends AbstractFormData {
     return getPropertyByClass(PersonNrProperty.class);
   }
 
-  public Prename getPrename() {
-    return getFieldByClass(Prename.class);
+  public static class Firstname extends AbstractValueFieldData<String> {
+
+    private static final long serialVersionUID = 1L;
+
+    public Firstname() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
+    }
   }
 
   public static class Name extends AbstractValueFieldData<String> {
@@ -74,23 +91,6 @@ public class PersonFormData extends AbstractFormData {
     private static final long serialVersionUID = 1L;
 
     public PersonNrProperty() {
-    }
-  }
-
-  public static class Prename extends AbstractValueFieldData<String> {
-
-    private static final long serialVersionUID = 1L;
-
-    public Prename() {
-    }
-
-    /**
-     * list of derived validation rules.
-     */
-    @Override
-    protected void initValidationRules(Map<String, Object> ruleMap) {
-      super.initValidationRules(ruleMap);
-      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
     }
   }
 }

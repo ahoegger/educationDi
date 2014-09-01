@@ -3,25 +3,25 @@ package com.bsiag.education.di.server.model;
 public class Person {
 
   private final long m_id;
-  private String m_lastName;
+  private String m_name;
   private String m_firstName;
 
   public Person(long id, String firstName, String lastName) {
     m_id = id;
     m_firstName = firstName;
-    m_lastName = lastName;
+    m_name = lastName;
   }
 
   public long getId() {
     return m_id;
   }
 
-  public String getLastName() {
-    return m_lastName;
+  public String getName() {
+    return m_name;
   }
 
-  public void setLastName(String lastName) {
-    this.m_lastName = lastName;
+  public void setName(String name) {
+    this.m_name = name;
   }
 
   public String getFirstName() {

@@ -15,9 +15,9 @@ import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringFiel
 import org.eclipse.scout.rt.shared.TEXTS;
 
 import com.bsiag.education.di.client.ui.forms.PersonForm.MainBox.CancelButton;
+import com.bsiag.education.di.client.ui.forms.PersonForm.MainBox.FirstnameField;
 import com.bsiag.education.di.client.ui.forms.PersonForm.MainBox.NameField;
 import com.bsiag.education.di.client.ui.forms.PersonForm.MainBox.OkButton;
-import com.bsiag.education.di.client.ui.forms.PersonForm.MainBox.PrenameField;
 import com.bsiag.education.di.shared.services.IPersonProcessService;
 import com.bsiag.education.di.shared.services.PersonFormData;
 import com.google.inject.Inject;
@@ -109,8 +109,8 @@ public class PersonForm extends AbstractForm {
   /**
    * @return the PrenameField
    */
-  public PrenameField getPrenameField() {
-    return getFieldByClass(PrenameField.class);
+  public FirstnameField getFirstnameField() {
+    return getFieldByClass(FirstnameField.class);
   }
 
   @Order(10.0)
@@ -126,11 +126,11 @@ public class PersonForm extends AbstractForm {
     }
 
     @Order(20.0)
-    public class PrenameField extends AbstractStringField {
+    public class FirstnameField extends AbstractStringField {
 
       @Override
       protected String getConfiguredLabel() {
-        return TEXTS.get("Prename");
+        return TEXTS.get("Firstname");
       }
     }
 
