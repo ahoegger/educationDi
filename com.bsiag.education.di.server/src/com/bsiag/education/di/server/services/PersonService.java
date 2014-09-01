@@ -24,13 +24,12 @@ public class PersonService {
   @Inject
   private PersonService(ISqlService sqlService) {
     m_sqlService = sqlService;
-    System.out.println("NEW PERSON SERVICE INST");
 
   }
 
   public List<Person> getPersons() throws ProcessingException {
     List<Person> persons = new ArrayList<Person>();
-    Object[][] data = m_sqlService.select("SELECT ID, PRENAME, NAME FROM PERSON");
+    Object[][] data = m_sqlService.select("SELECT ID, FIRSTNAME, NAME FROM PERSON");
     for (Object[] personData : data) {
       Person p = new Person(TypeCastUtility.castValue(personData[0], Integer.class).intValue(),
           TypeCastUtility.castValue(personData[1], String.class),

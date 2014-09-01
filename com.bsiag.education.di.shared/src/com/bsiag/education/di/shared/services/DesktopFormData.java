@@ -3,13 +3,9 @@
  */
 package com.bsiag.education.di.shared.services;
 
-import java.util.Map;
-
 import javax.annotation.Generated;
 
 import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
-import org.eclipse.scout.rt.shared.data.form.ValidationRule;
-import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
 import org.eclipse.scout.rt.shared.data.form.fields.tablefield.AbstractTableFieldData;
 
 /**
@@ -26,39 +22,26 @@ public class DesktopFormData extends AbstractFormData {
   public DesktopFormData() {
   }
 
-  public Name getName() {
-    return getFieldByClass(Name.class);
-  }
-
   public PersonTable getPersonTable() {
     return getFieldByClass(PersonTable.class);
-  }
-
-  public static class Name extends AbstractValueFieldData<String> {
-
-    private static final long serialVersionUID = 1L;
-
-    public Name() {
-    }
-
-    /**
-     * list of derived validation rules.
-     */
-    @Override
-    protected void initValidationRules(Map<String, Object> ruleMap) {
-      super.initValidationRules(ruleMap);
-      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
-    }
   }
 
   public static class PersonTable extends AbstractTableFieldData {
 
     private static final long serialVersionUID = 1L;
     public static final int ID_COLUMN_ID = 0;
-    public static final int PRENAME_COLUMN_ID = 1;
+    public static final int FIRSTNAME_COLUMN_ID = 1;
     public static final int NAME_COLUMN_ID = 2;
 
     public PersonTable() {
+    }
+
+    public String getFirstname(int row) {
+      return (String) getValueInternal(row, FIRSTNAME_COLUMN_ID);
+    }
+
+    public void setFirstname(int row, String firstname) {
+      setValueInternal(row, FIRSTNAME_COLUMN_ID, firstname);
     }
 
     public Long getId(int row) {
@@ -77,14 +60,6 @@ public class DesktopFormData extends AbstractFormData {
       setValueInternal(row, NAME_COLUMN_ID, name);
     }
 
-    public String getPrename(int row) {
-      return (String) getValueInternal(row, PRENAME_COLUMN_ID);
-    }
-
-    public void setPrename(int row, String prename) {
-      setValueInternal(row, PRENAME_COLUMN_ID, prename);
-    }
-
     @Override
     public int getColumnCount() {
       return 3;
@@ -95,8 +70,8 @@ public class DesktopFormData extends AbstractFormData {
       switch (column) {
         case ID_COLUMN_ID:
           return getId(row);
-        case PRENAME_COLUMN_ID:
-          return getPrename(row);
+        case FIRSTNAME_COLUMN_ID:
+          return getFirstname(row);
         case NAME_COLUMN_ID:
           return getName(row);
         default:
@@ -110,8 +85,8 @@ public class DesktopFormData extends AbstractFormData {
         case ID_COLUMN_ID:
           setId(row, (Long) value);
           break;
-        case PRENAME_COLUMN_ID:
-          setPrename(row, (String) value);
+        case FIRSTNAME_COLUMN_ID:
+          setFirstname(row, (String) value);
           break;
         case NAME_COLUMN_ID:
           setName(row, (String) value);

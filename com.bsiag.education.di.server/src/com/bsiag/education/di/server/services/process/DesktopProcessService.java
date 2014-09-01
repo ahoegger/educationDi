@@ -29,7 +29,7 @@ public class DesktopProcessService extends AbstractService implements IDesktopPr
   @Override
   public DesktopFormData load(DesktopFormData formData) throws ProcessingException {
     for (Person p : m_personService.getPersons()) {
-      formData.getPersonTable().addRow(new Object[]{p.getId(), p.getFirstName(), p.getLastName()});
+      formData.getPersonTable().addRow(new Object[]{p.getId(), p.getFirstName(), p.getName()});
     }
     return formData;
   }

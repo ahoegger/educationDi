@@ -11,13 +11,11 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
-import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
 import org.eclipse.scout.rt.extension.client.ui.basic.table.AbstractExtensibleTable;
 import org.eclipse.scout.rt.shared.TEXTS;
 
 import com.bsiag.education.di.client.services.ILogService;
-import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.NameField;
 import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.PersonTableField;
 import com.bsiag.education.di.shared.Icons;
 import com.bsiag.education.di.shared.services.DesktopFormData;
@@ -79,13 +77,6 @@ public class DesktopForm extends AbstractForm {
   }
 
   /**
-   * @return the NameField
-   */
-  public NameField getNameField() {
-    return getFieldByClass(NameField.class);
-  }
-
-  /**
    * @return the PersonTableField
    */
   public PersonTableField getPersonTableField() {
@@ -98,15 +89,6 @@ public class DesktopForm extends AbstractForm {
     @Override
     protected int getConfiguredGridColumnCount() {
       return 1;
-    }
-
-    @Order(10.0)
-    public class NameField extends AbstractStringField {
-
-      @Override
-      protected String getConfiguredLabel() {
-        return TEXTS.get("Name");
-      }
     }
 
     @Order(20.0)
@@ -123,8 +105,8 @@ public class DesktopForm extends AbstractForm {
         /**
          * @return the PrenameColumn
          */
-        public PrenameColumn getPrenameColumn() {
-          return getColumnSet().getColumnByClass(PrenameColumn.class);
+        public FirstnameColumn getPrenameColumn() {
+          return getColumnSet().getColumnByClass(FirstnameColumn.class);
         }
 
         /**
@@ -161,11 +143,11 @@ public class DesktopForm extends AbstractForm {
         }
 
         @Order(20.0)
-        public class PrenameColumn extends AbstractStringColumn {
+        public class FirstnameColumn extends AbstractStringColumn {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return TEXTS.get("Prename");
+            return TEXTS.get("Firstname");
           }
 
           @Override
