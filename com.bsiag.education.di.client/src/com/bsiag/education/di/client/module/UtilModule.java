@@ -13,9 +13,6 @@ import com.google.inject.Module;
  */
 public class UtilModule implements Module {
 
-  /* (non-Javadoc)
-   * @see com.google.inject.Module#configure(com.google.inject.Binder)
-   */
   @Override
   public void configure(Binder binder) {
     binder.bind(ILogService.class).to(ConsoleLogService.class);

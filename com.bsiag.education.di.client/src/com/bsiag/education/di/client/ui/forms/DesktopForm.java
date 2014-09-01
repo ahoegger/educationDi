@@ -21,7 +21,7 @@ import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.NameField;
 import com.bsiag.education.di.client.ui.forms.DesktopForm.MainBox.PersonTableField;
 import com.bsiag.education.di.shared.Icons;
 import com.bsiag.education.di.shared.services.DesktopFormData;
-import com.bsiag.education.di.shared.services.IDesktopService;
+import com.bsiag.education.di.shared.services.IDesktopProcessService;
 import com.google.inject.Inject;
 
 /**
@@ -31,13 +31,13 @@ import com.google.inject.Inject;
 public class DesktopForm extends AbstractForm {
 
   private final ILogService m_logService;
-  private final IDesktopService m_desktopService;
+  private final IDesktopProcessService m_desktopService;
 
   /**
    * @throws org.eclipse.scout.commons.exception.ProcessingException
    */
   @Inject
-  private DesktopForm(ILogService logService, IDesktopService desktopService) throws ProcessingException {
+  private DesktopForm(ILogService logService, IDesktopProcessService desktopService) throws ProcessingException {
     super();
     m_logService = logService;
     m_desktopService = desktopService;

@@ -10,8 +10,8 @@ import org.eclipse.scout.rt.shared.services.common.security.IAccessControlServic
 import org.eclipse.scout.rt.shared.services.common.security.ILogoutService;
 
 import com.bsiag.education.di.server.services.common.security.AccessControlService;
-import com.bsiag.education.di.server.services.process.DesktopService;
-import com.bsiag.education.di.shared.services.IDesktopService;
+import com.bsiag.education.di.server.services.process.DesktopProcessService;
+import com.bsiag.education.di.shared.services.IDesktopProcessService;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 
@@ -26,7 +26,7 @@ public class ProcessServiceModule implements Module {
     binder.bind(IAccessControlService.class).to(AccessControlService.class);
     binder.bind(ILogoutService.class).to(LogoutService.class);
 
-    binder.bind(IDesktopService.class).to(DesktopService.class);
+    binder.bind(IDesktopProcessService.class).to(DesktopProcessService.class);
 
   }
 }

@@ -18,7 +18,6 @@ public class ServiceModule implements Module {
   @Override
   public void configure(Binder binder) {
     binder.bind(PersonService.class);
-
   }
 
 }
