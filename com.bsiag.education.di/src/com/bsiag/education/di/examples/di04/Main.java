@@ -37,20 +37,20 @@ public class Main {
 	@Singleton
 	public static class PizzaSerice implements IFoodService{
 		
-		private IPrintSerice printSerice;
+		private final IPrintSerice printService;
 		
 		/**
 		 * reduce scope to private to ensure only guice is creating new instances 
 		 */
 		@Inject
 		private PizzaSerice(IPrintSerice printSerice) {
-			this.printSerice = printSerice;
+			this.printService = printSerice;
 			System.out.println("construct pizza service");
 		}
 		
 		@Override
 		public void printOffer() {
-			printSerice.print("Some pizzas");
+			printService.print("Some pizzas");
 		}
 	}
 	

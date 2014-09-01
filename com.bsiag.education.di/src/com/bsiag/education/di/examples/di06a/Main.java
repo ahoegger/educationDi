@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di05;
+package com.bsiag.education.di.examples.di06a;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
@@ -10,8 +10,7 @@ import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 /**
- * - Bind properties with the  @Named(...)  annotation.
- * - Bind direct to instances - objects are immediately created.
+ * field injection
  */
 public class Main {
 
@@ -23,8 +22,7 @@ public class Main {
 	public static class FoodModule implements Module {
 		@Override
 		public void configure(Binder binder) {
-			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo"))
-					.toInstance("Alberto");
+			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo")).toInstance("Alberto");
 			// bind the food service
 			binder.bind(IFoodService.class).to(PizzaSerice.class);
 		}
@@ -37,12 +35,13 @@ public class Main {
 	@Singleton
 	public static class PizzaSerice implements IFoodService {
 
-		private final String pizzaiolo;
+		@Inject @Named("pizzaiolo") 
+		private String pizzaiolo;
 
 		@Inject
-		private PizzaSerice(@Named("pizzaiolo") String pizzaiolo) {
-			this.pizzaiolo = pizzaiolo;
+		private PizzaSerice( ) {
 		}
+		
 
 		@Override
 		public void printOffer() {
