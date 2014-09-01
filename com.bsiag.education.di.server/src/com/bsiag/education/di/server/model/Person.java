@@ -1,19 +1,18 @@
 package com.bsiag.education.di.server.model;
 
-
 public class Person {
 
-  private final int m_id;
+  private final long m_id;
   private String m_lastName;
   private String m_firstName;
 
-  public Person(int id, String firstName, String lastName) {
+  public Person(long id, String firstName, String lastName) {
     m_id = id;
     m_firstName = firstName;
     m_lastName = lastName;
   }
 
-  public int getId() {
+  public long getId() {
     return m_id;
   }
 

@@ -6,7 +6,7 @@ package com.bsiag.education.di.client.ui.forms;
 import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
-import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractIntegerColumn;
+import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
@@ -142,7 +142,7 @@ public class DesktopForm extends AbstractForm {
         }
 
         @Order(10.0)
-        public class IdColumn extends AbstractIntegerColumn {
+        public class IdColumn extends AbstractLongColumn {
 
           @Override
           protected boolean getConfiguredDisplayable() {
@@ -191,15 +191,17 @@ public class DesktopForm extends AbstractForm {
     }
   }
 
+  private void reload() throws ProcessingException {
+    DesktopFormData formData = new DesktopFormData();
+    formData = m_desktopService.load(formData);
+    importFormData(formData);
+  }
+
   public class ViewHandler extends AbstractFormHandler {
 
     @Override
     protected void execLoad() throws ProcessingException {
-//      IDesktopService service = SERVICES.getService(IDesktopService.class);
-      DesktopFormData formData = new DesktopFormData();
-      exportFormData(formData);
-      formData = m_desktopService.load(formData);
-      importFormData(formData);
+      reload();
 
     }
   }

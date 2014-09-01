@@ -20,13 +20,10 @@ public class DerbySqlService extends AbstractDerbySqlService {
   @Inject
   private DerbySqlService(@Named("DB-LOCATION") String dbLocation) {
     m_dbLocation = dbLocation;
-
-    // TODO Auto-generated constructor stub
   }
 
   @Override
   public String getJdbcMappingName() {
-    System.out.println(m_dbLocation);
     return "jdbc:derby:" + m_dbLocation;//D:\\education\\DI\\scoutExample\\workspace\\com.bsiag.education.di.database\\db";
   }
 }
