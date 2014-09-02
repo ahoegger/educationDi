@@ -17,7 +17,7 @@ public class PersonService implements IPersonService {
 
 	@Override
 	public String getName() {
-		return "Hugo Boss";
+		return "Homer Simpson";
 	}
 
 	@Override
