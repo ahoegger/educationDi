@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di15;
+package com.bsiag.education.di.examples.di17;
 
 public interface IRankedService {
 

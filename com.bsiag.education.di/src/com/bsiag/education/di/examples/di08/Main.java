@@ -1,35 +1,28 @@
 package com.bsiag.education.di.examples.di08;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
-import com.google.inject.util.Modules;
+import com.google.inject.name.Named;
+import com.google.inject.name.Names;
 
 /**
- * Override service implementations
+ * field injection
  */
 public class Main {
 
 	public static void main(String[] args) {
-		Injector injector = Guice.createInjector(Modules.override(new FoodModule()).with(new AbstractModule() {
-			
-			@Override
-			protected void configure() {
-				bind(IFoodService.class).to(KebabSerice.class);
-			}
-		}));
-
-		IFoodService foodService = injector.getInstance(IFoodService.class);
-		foodService.printOffer();
+		Injector injector = Guice.createInjector(new FoodModule());
+		injector.getInstance(IFoodService.class).printOffer();
 	}
 
 	public static class FoodModule implements Module {
 		@Override
 		public void configure(Binder binder) {
+			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo")).toInstance("Alberto");
 			// bind the food service
 			binder.bind(IFoodService.class).to(PizzaSerice.class);
 		}
@@ -42,26 +35,17 @@ public class Main {
 	@Singleton
 	public static class PizzaSerice implements IFoodService {
 
+		@Inject @Named("pizzaiolo") 
+		private String pizzaiolo;
+
 		@Inject
-		private PizzaSerice() {
+		private PizzaSerice( ) {
 		}
+		
 
 		@Override
 		public void printOffer() {
-			System.out.println("Some pizzas");
-		}
-	}
-
-	@Singleton
-	public static class KebabSerice implements IFoodService {
-
-		@Inject
-		private KebabSerice() {
-		}
-
-		@Override
-		public void printOffer() {
-			System.out.println("Bizeli schaf kebab");
+			System.out.println("Some pizzas by " + pizzaiolo);
 		}
 	}
 

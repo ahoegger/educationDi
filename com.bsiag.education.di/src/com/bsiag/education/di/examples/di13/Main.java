@@ -2,85 +2,57 @@ package com.bsiag.education.di.examples.di13;
 
 import com.google.inject.Binder;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 
 /**
- * use field injection for larger hierarchies
+ * use providers to customize services.
  */
 public class Main {
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new FoodModule());
 
-		injector.getInstance(IFoodService.class).print();
+		injector.getInstance(IFoodService.class).printOffer();
+		injector.getInstance(IFoodService.class).printOffer();
 	}
 
 	public static class FoodModule implements Module {
 		@Override
 		public void configure(Binder binder) {
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
 		}
 
+		@Provides
+		@Singleton
+		public IFoodService provideFoodService() {
+			PizzaSerice pizzaSerice = new PizzaSerice();
+			pizzaSerice.setPizzaioloName("Alberto");
+			return pizzaSerice;
+		}
 	}
 
 	public static interface IFoodService {
-		void print();
+		void printOffer();
 	}
-	
-	public static abstract class FastFoodService implements IFoodService{
-		
-		@Inject
-		private final FastFoodTaxCalculatorService calcService = null;
 
-//		public FastFoodService(FastFoodTaxCalculatorService calcService){
-//			this.calcService = calcService;
-//		}
-		
-		
+	public static class PizzaSerice implements IFoodService {
+
+		private String pizzaiolo;
+
+		PizzaSerice() {
+		}
+
+		public void setPizzaioloName(String pizzaiolo) {
+			this.pizzaiolo = pizzaiolo;
+
+		}
+
 		@Override
-		public void print() {
-			System.out.println("FastFoodTaxCalculatorService "+(calcService ));
-		}
-		
-	}
-
-	public static class PizzaSerice extends FastFoodService {
-
-
-		@Inject
-		private PizzaDeliveryService deliveryService;
-
-//		@Inject
-//		private PizzaSerice(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
-//			super(calcService);
-//			this.deliveryService = deliveryService;
-//		}
-
-		@Inject
-		private PizzaSerice(){
-			
-		}
-		
-//		@Inject
-//		private void setDeliveryService(PizzaDeliveryService deliveryService) {
-//			this.deliveryService = deliveryService;
-//		}
-		
-		@Override
-		public void print() {
-			super.print();
-			System.out.println("PizzaDeliveryService "+deliveryService);
+		public void printOffer() {
+			System.out.println("Some pizzas by " + pizzaiolo);
 		}
 	}
 
-	
-	public static class FastFoodTaxCalculatorService{
-		
-	}
-	
-	public static class PizzaDeliveryService{
-		
-	}
 }

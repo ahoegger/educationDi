@@ -7,39 +7,22 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.google.inject.name.Names;
 
 /**
- * Usage of child injectors. Thake care the object is always created in the
- * 
- * Just-in-time bindings created for child injectors will be created in an
- * ancestor injector whenever possible. This allows for scoped instances to be
- * shared between injectors. Use explicit bindings to prevent bindings from
- * being shared with the parent injector.
+ * guice is nullsafe
+ * optional method bindings
  */
 public class Main {
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new FoodModule());
-
-		Injector childInjector = injector.createChildInjector(new Module() {
-
-			@Override
-			public void configure(Binder binder) {
-				binder.bind(String.class)
-						.annotatedWith(Names.named("pizzaiolo"))
-						.toInstance("Alberto");
-			}
-		});
-		IFoodService foodService = childInjector
-				.getInstance(IFoodService.class);
-		// childInjector.injectMembers(foodService);
-		foodService.printOffer();
+		injector.getInstance(IFoodService.class).printOffer();
 	}
 
 	public static class FoodModule implements Module {
 		@Override
 		public void configure(Binder binder) {
+//			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo")).toInstance("Alberto");
 			// bind the food service
 			binder.bind(IFoodService.class).to(PizzaSerice.class);
 		}
@@ -55,11 +38,11 @@ public class Main {
 		private String pizzaiolo;
 
 		@Inject
-		private PizzaSerice() {
+		private PizzaSerice( ) {
 		}
-
-		@Inject(optional = true)
-		public void setPizzaiolo(@Named("pizzaiolo") String pizzaiolo) {
+		
+		@Inject(optional=true)
+		public void setPizzaiolo( @Named("pizzaiolo")String pizzaiolo) {
 			this.pizzaiolo = pizzaiolo;
 		}
 
