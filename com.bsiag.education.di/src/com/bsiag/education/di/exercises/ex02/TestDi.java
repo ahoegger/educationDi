@@ -87,7 +87,6 @@ public class TestDi {
 
 	}
 
-	@Singleton
 	public static interface IShoppingCart {
 		void add(Object product);
 
