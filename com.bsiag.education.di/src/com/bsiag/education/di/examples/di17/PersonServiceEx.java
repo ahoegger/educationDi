@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di15;
+package com.bsiag.education.di.examples.di17;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

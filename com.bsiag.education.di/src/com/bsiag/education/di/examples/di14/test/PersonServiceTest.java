@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di12.test;
+package com.bsiag.education.di.examples.di14.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.bsiag.education.di.examples.di12.CtiModule;
-import com.bsiag.education.di.examples.di12.ICtiService;
-import com.bsiag.education.di.examples.di12.IPersonService;
-import com.bsiag.education.di.examples.di12.Person;
-import com.bsiag.education.di.examples.di12.PersonModule;
+import com.bsiag.education.di.examples.di14.CtiModule;
+import com.bsiag.education.di.examples.di14.ICtiService;
+import com.bsiag.education.di.examples.di14.IPersonService;
+import com.bsiag.education.di.examples.di14.Person;
+import com.bsiag.education.di.examples.di14.PersonModule;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;

@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di12;
+package com.bsiag.education.di.examples.di14;
 
 public interface ICtiService {
 

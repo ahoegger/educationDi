@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di12;
+package com.bsiag.education.di.examples.di14;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
