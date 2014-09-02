@@ -4,7 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
- * use providers to customize services.
+ * a testing example
  */
 public class Main {
 

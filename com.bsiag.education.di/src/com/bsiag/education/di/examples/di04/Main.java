@@ -66,7 +66,7 @@ public class Main {
 		 */
 		@Inject
 		private ConsolePrintService(){
-			System.out.println("construct pizza service");
+			System.out.println("print service");
 		}
 		@Override
 		public void print(String message){
