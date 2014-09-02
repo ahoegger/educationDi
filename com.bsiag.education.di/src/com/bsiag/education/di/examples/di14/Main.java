@@ -7,11 +7,10 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.google.inject.name.Names;
+import com.google.inject.name.Names; 
 
 /**
- * - Bind properties with the @Named(...) annotation. - Bind direct to instances
- * - objects are immediately created.
+ * constructor, field, method order.
  */
 public class Main {
 
