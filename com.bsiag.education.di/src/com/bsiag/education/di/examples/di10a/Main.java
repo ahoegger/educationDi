@@ -12,7 +12,7 @@ import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 /**
- * use providers to customize services.
+ * use providers to create expensive objects.
  */
 public class Main {
 
