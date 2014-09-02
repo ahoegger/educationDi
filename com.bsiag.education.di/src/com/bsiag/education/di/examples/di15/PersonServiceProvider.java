@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di14;
+package com.bsiag.education.di.examples.di15;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package com.bsiag.education.di.examples.di14;
+package com.bsiag.education.di.examples.di15;
 
 public interface IPersonService extends IRankedService {
 
