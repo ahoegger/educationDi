@@ -31,12 +31,12 @@ public class Main {
 	
 	public static abstract class FastFoodService implements IFoodService{
 		
-		@Inject
-		private final FastFoodTaxCalculatorService calcService = null;
+//		@Inject
+		private FastFoodTaxCalculatorService calcService;
 
-//		public FastFoodService(FastFoodTaxCalculatorService calcService){
-//			this.calcService = calcService;
-//		}
+		public FastFoodService(FastFoodTaxCalculatorService calcService){
+			this.calcService = calcService;
+		}
 		
 		
 		@Override
@@ -49,24 +49,20 @@ public class Main {
 	public static class PizzaSerice extends FastFoodService {
 
 
-		@Inject
+//		@Inject
 		private PizzaDeliveryService deliveryService;
 
-//		@Inject
-//		private PizzaSerice(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
-//			super(calcService);
-//			this.deliveryService = deliveryService;
-//		}
-
 		@Inject
-		private PizzaSerice(){
-			
+		private PizzaSerice(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
+			super(calcService);
+			this.deliveryService = deliveryService;
 		}
-		
+
 //		@Inject
-//		private void setDeliveryService(PizzaDeliveryService deliveryService) {
-//			this.deliveryService = deliveryService;
+//		private PizzaSerice(){
+//			
 //		}
+		
 		
 		@Override
 		public void print() {

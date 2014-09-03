@@ -14,7 +14,8 @@ import com.google.inject.name.Names;
  * @author aho
  */
 public class DataAccessModule implements Module {
-  private static final String DB_LOCATION = "D:/education/DI/workspaces/step01/git/educationDi/com.bsiag.education.di.database/db";
+  private static final String DB_LOCATION =
+      "D:/education/DI/workspaces/step01/git/educationDi/com.bsiag.education.di.database/db";
   private static final String SEQUENCE_NAME = "SEQ";
   private static final String SEQUENCE_COLUMN_NAME = "NEXT_VAL";
 
