@@ -27,9 +27,9 @@ public class Main {
 		@Provides
 		@Singleton
 		public IFoodService provideFoodService() {
-			PizzaSerice pizzaSerice = new PizzaSerice();
-			pizzaSerice.setPizzaioloName("Alberto");
-			return pizzaSerice;
+			PizzaService PizzaService = new PizzaService();
+			PizzaService.setPizzaioloName("Alberto");
+			return PizzaService;
 		}
 	}
 
@@ -37,11 +37,11 @@ public class Main {
 		void printOffer();
 	}
 
-	public static class PizzaSerice implements IFoodService {
+	public static class PizzaService implements IFoodService {
 
 		private String pizzaiolo;
 
-		PizzaSerice() {
+		PizzaService() {
 		}
 
 		public void setPizzaioloName(String pizzaiolo) {

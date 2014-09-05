@@ -28,7 +28,7 @@ public class Main {
 		@Override
 		public void configure(Binder binder) {
 			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo")).toInstance("Alberto");
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
+			binder.bind(IFoodService.class).to(PizzaService.class);
 		}
 	}
 
@@ -46,13 +46,13 @@ public class Main {
 		void printOffer();
 	}
 	
-	public static class PizzaSerice implements IFoodService{
+	public static class PizzaService implements IFoodService{
 		
 		private String pizzaiolo;
 		private Provider<AnExpensiveLogService> logServiceProvider;
 		
 		@Inject
-		private PizzaSerice(Provider<AnExpensiveLogService> logServiceProvider) {
+		private PizzaService(Provider<AnExpensiveLogService> logServiceProvider) {
 			this.logServiceProvider = logServiceProvider;
 		}
 		

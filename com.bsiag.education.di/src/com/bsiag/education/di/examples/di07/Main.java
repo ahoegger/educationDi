@@ -24,7 +24,7 @@ public class Main {
 		public void configure(Binder binder) {
 //			binder.bind(String.class).annotatedWith(Names.named("pizzaiolo")).toInstance("Alberto");
 			// bind the food service
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
+			binder.bind(IFoodService.class).to(PizzaService.class);
 		}
 	}
 
@@ -33,12 +33,12 @@ public class Main {
 	}
 
 	@Singleton
-	public static class PizzaSerice implements IFoodService {
+	public static class PizzaService implements IFoodService {
 
 		private String pizzaiolo;
 
 		@Inject
-		private PizzaSerice( ) {
+		private PizzaService( ) {
 		}
 		
 		@Inject(optional=true)

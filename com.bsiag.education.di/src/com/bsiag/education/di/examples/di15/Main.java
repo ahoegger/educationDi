@@ -20,7 +20,7 @@ public class Main {
 	public static class FoodModule implements Module {
 		@Override
 		public void configure(Binder binder) {
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
+			binder.bind(IFoodService.class).to(PizzaService.class);
 		}
 
 	}
@@ -31,12 +31,12 @@ public class Main {
 	
 	public static abstract class FastFoodService implements IFoodService{
 		
-		@Inject
-		private final FastFoodTaxCalculatorService calcService = null;
+//		@Inject
+		private FastFoodTaxCalculatorService calcService;
 
-//		public FastFoodService(FastFoodTaxCalculatorService calcService){
-//			this.calcService = calcService;
-//		}
+		public FastFoodService(FastFoodTaxCalculatorService calcService){
+			this.calcService = calcService;
+		}
 		
 		
 		@Override
@@ -46,27 +46,23 @@ public class Main {
 		
 	}
 
-	public static class PizzaSerice extends FastFoodService {
+	public static class PizzaService extends FastFoodService {
 
 
-		@Inject
+//		@Inject
 		private PizzaDeliveryService deliveryService;
 
-//		@Inject
-//		private PizzaSerice(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
-//			super(calcService);
-//			this.deliveryService = deliveryService;
-//		}
-
 		@Inject
-		private PizzaSerice(){
-			
+		private PizzaService(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
+			super(calcService);
+			this.deliveryService = deliveryService;
 		}
-		
+
 //		@Inject
-//		private void setDeliveryService(PizzaDeliveryService deliveryService) {
-//			this.deliveryService = deliveryService;
+//		private PizzaService(){
+//			
 //		}
+		
 		
 		@Override
 		public void print() {
