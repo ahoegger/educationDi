@@ -10,10 +10,13 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
-/**
+/**<h4>Constructor binding<h4>
+ * 
+ * If several constructors are annotated
+ * 
  * Constructor binding for non modifiable classes.
  */
-public class Main {
+public class ConstructorBinding {
 
 	public static void main(String[] args) {
 		Injector injector = Guice.createInjector(new FoodModule());
@@ -27,7 +30,7 @@ public class Main {
 					.toInstance("Alberto");
 			// bind the food service
 			try {
-				Constructor<PizzaSerice> constructor = PizzaSerice.class.getConstructor(String.class);
+				Constructor<PizzaService> constructor = PizzaService.class.getConstructor(String.class);
 				binder.bind(IFoodService.class).toConstructor(constructor);
 			} catch (NoSuchMethodException | SecurityException e) {
 				e.printStackTrace();
@@ -40,12 +43,12 @@ public class Main {
 	}
 
 	@Singleton
-	public static class PizzaSerice implements IFoodService {
+	public static class PizzaService implements IFoodService {
 
 		private final String pizzaiolo;
 
 		// constructor must be public
-		public PizzaSerice(@Named("pizzaiolo") String pizzaiolo) {
+		public PizzaService(@Named("pizzaiolo") String pizzaiolo) {
 			this.pizzaiolo = pizzaiolo;
 		}
 

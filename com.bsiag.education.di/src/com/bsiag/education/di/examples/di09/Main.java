@@ -41,7 +41,7 @@ public class Main {
 		@Override
 		public void configure(Binder binder) {
 			// bind the food service
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
+			binder.bind(IFoodService.class).to(PizzaService.class);
 		}
 	}
 
@@ -50,12 +50,12 @@ public class Main {
 	}
 
 	@Singleton
-	public static class PizzaSerice implements IFoodService {
+	public static class PizzaService implements IFoodService {
 
 		private String pizzaiolo;
 
 		@Inject
-		private PizzaSerice() {
+		private PizzaService() {
 		}
 
 		@Inject(optional = true)

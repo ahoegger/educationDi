@@ -42,7 +42,7 @@ public class Main {
 		}
 		@Override
 		public IFoodService get() {
-			PizzaSerice foodService = new PizzaSerice();
+			PizzaService foodService = new PizzaService();
 			foodService.setPizzaioloName(pizzaiolo);
 			return foodService;
 		}
@@ -53,10 +53,10 @@ public class Main {
 		void printOffer();
 	}
 	
-	public static class PizzaSerice implements IFoodService{
+	public static class PizzaService implements IFoodService{
 		
 		private String pizzaiolo;
-		PizzaSerice() {
+		PizzaService() {
 		}
 		
 		public void setPizzaioloName(String pizzaiolo){

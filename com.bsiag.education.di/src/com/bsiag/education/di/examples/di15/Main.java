@@ -20,7 +20,7 @@ public class Main {
 	public static class FoodModule implements Module {
 		@Override
 		public void configure(Binder binder) {
-			binder.bind(IFoodService.class).to(PizzaSerice.class);
+			binder.bind(IFoodService.class).to(PizzaService.class);
 		}
 
 	}
@@ -46,20 +46,20 @@ public class Main {
 		
 	}
 
-	public static class PizzaSerice extends FastFoodService {
+	public static class PizzaService extends FastFoodService {
 
 
 //		@Inject
 		private PizzaDeliveryService deliveryService;
 
 		@Inject
-		private PizzaSerice(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
+		private PizzaService(PizzaDeliveryService deliveryService, FastFoodTaxCalculatorService calcService) {
 			super(calcService);
 			this.deliveryService = deliveryService;
 		}
 
 //		@Inject
-//		private PizzaSerice(){
+//		private PizzaService(){
 //			
 //		}
 		
